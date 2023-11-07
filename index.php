@@ -20,12 +20,12 @@
 	// privete - можно обращаться только внутри класса
 	// protected - исп. при наследовании
 
-		class MyClass {
+		class People {
 			public $age; // public - исп. для задания области
 			public $name; // видимости переменной
 		}
 
-		$ivan = new MyClass;
+		$ivan = new People;
 		$ivan->age = 30;
 		$ivan->name = 'Ivan';
 
@@ -36,14 +36,25 @@
 		echo '<br>';
 
 
-		class Location {
-			public $x;
-			// private $y;
+		class Animal {
+			public $name;
+			protected $age = 5;
+
+			function test() 
+			{
+				echo $this->age;
+			}
 		}
 
-		$loc = new Location();
-		$loc->x = 23.22;
-		$loc->y = 54.73;
+		$animal = new Animal();
+		$animal->name = 'rabbit';
+		$animal->test();
+		echo '<br>';
+
+		class Planet {
+			public $name;
+			protected $age;
+		}
 	?>
 </body>
 </html>
