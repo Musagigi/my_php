@@ -1,6 +1,5 @@
-<?php 
+<?php
 
-	include 'secT.php';
+include 'secT.php';
 
-	echo 2;
-?>
+echo 2;
