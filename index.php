@@ -81,8 +81,42 @@
 	echo 'имя директории' . __DIR__ . '</br>';
 	$a = 1;
 	define('B', 'test');
-	echo $a, B;
+	echo $a, B, '<br>';
+
+	// арифметические операторы как и в js
+	// точка тут считается конкатенацией
+	// (int) округляет дробное число до целого 
+	echo (int)(5 / 3), '<br>';
+	echo (5 / 3), '<br>';
 	?>
+
+	<?php
+	date_default_timezone_set('Europe/Moscow');
+	$currentHour = date('H');
+	$timels = 0;
+
+	if ($currentHour >= 23 || $currentHour <= 6) {
+		echo $timels = 1;
+	} elseif ($currentHour >= 7 || $currentHour <= 15) {
+		echo $timels = 2;
+	} elseif ($currentHour >= 16 || $currentHour < 23) {
+		echo $timels = 3;
+	}
+	?>
+
+	<?php
+	if ($timels === 1) :
+	?>
+		<h1>Сейчас ночь</h1>
+	<?php
+	elseif ($timels === 2) :
+	?>
+		<h1>Сейчас день</h1>
+	<?php
+	elseif ($timels === 3) :
+	?>
+		<h1>Сейчас вечер</h1>
+	<?php endif ?>
 </body>
 
 </html>
