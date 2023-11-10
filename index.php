@@ -176,6 +176,112 @@
 	file_put_contents($file, 'hello');
 	echo file_get_contents($file);
 	?>
+
+	<br>
+
+	<?php
+	$c = [];
+	for ($i = 0; $i < 5; $i++) {
+		$c[] = rand(0, 100);
+	}
+	var_dump($c);
+	echo '<br>';
+
+	// для массива обычный for не используется
+	for ($i = 0; $i < count($c); $i++) {
+		echo $c[$i];
+		echo '<br>';
+	}
+	echo '<br>';
+
+	// для массива используем foreach
+	foreach ($c as $index => $item) {
+		echo $index . ' ' . $item . '<br>';
+	}
+	echo '<br>';
+
+	$max = null;
+	foreach ($c as $item) {
+		if ($item > $max) {
+			$max = $item;
+		}
+	}
+	echo $max . " max numbrt for array \$c" . '<br>';
+
+	// знак ампресанда (&) позволяет работать непосредственно со значениями из массива, тем самым мы меняем исходный массив
+	foreach ($c as &$item) {
+		$item = 0;
+	}
+	// все значения равны 0
+	var_dump($c);
+	echo '<br>';
+
+	$d = ['ivan', 'petr'];
+
+	foreach ($d as &$item) {
+		$item = 'Name: ' . $item;
+	}
+	// unset - уничтожает переданный аргумент
+	// если не прописать то переменная так как указывает на массив
+	// будет существовать за пределами foreach в ней будет хранится 
+	// ссылка на последнее значение массив, поэтому нужно явно уничтожать
+	// это все из-за & - амперсанда
+	unset($item);
+	echo $item;
+	var_dump($d);
+	echo '<br>'
+	?>
+
+	<?php
+
+	// можно добавлять тип данных для параметров и для возвр. значения
+	// делать значение по умолчанию
+	function calc(int $a, int $b, string $oper = '+'): int|string
+	{
+		switch ($oper) {
+			case '+':
+				$c = $a + $b;
+				break;
+			case '-':
+				$c = $a - $b;
+				break;
+			default:
+				$c = 'некорректный оператор';
+				break;
+		}
+
+		return $c;
+	}
+
+	$result = calc(10, 4);
+	echo "result fun calc: $result <br>";
+	$result = calc(10, 4, '-');
+	echo "result fun calc: $result <br>";
+	$result = calc(10, 4, '*');
+	echo "result fun calc: $result <br>";
+
+
+	// spread operator
+	function calc2(...$a): array
+	{
+		return $a;
+	}
+	$spread = calc2(1, 2, 3, 4, 5);
+	print_r($spread);
+	?>
+
+
+	<form action="./index.php" method="post">
+		<div>
+			<label for="email">email:</label>
+			<input type="email" id="email" placeholder="введите почту" />
+		</div>
+		<div>
+			<label for="password">password:</label>
+			<input type="text" id="password" placeholder="введите пароль" />
+		</div>
+		<button type="submit">submit</button>
+	</form>
 </body>
 
 </html>
