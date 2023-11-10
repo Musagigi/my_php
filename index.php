@@ -170,6 +170,12 @@
 	?>
 		<h1>Сейчас вечер</h1>
 	<?php endif ?>
+
+	<?php
+	$file = './hello.txt';
+	file_put_contents($file, 'hello');
+	echo file_get_contents($file);
+	?>
 </body>
 
 </html>
