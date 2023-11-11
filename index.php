@@ -268,20 +268,73 @@
 	}
 	$spread = calc2(1, 2, 3, 4, 5);
 	print_r($spread);
+	echo '<br>'
 	?>
 
+	<?php
+	$email = '';
+	$password = '';
+	$error = '';
+	// isset() - исп. для проверки существования пременной или ключа в массиве
+	// лучше использовать empty() - Она возвращает true, если переменная не существует или ее значение равно false, 0, пустой строке "", NULL или массиву без элементов. В противном случае, функция возвращает false
+	if (!empty($_POST['email']) && !empty($_POST['password'])) {
+		$email = $_POST['email'];
+		$password = $_POST['password'];
 
-	<form action="./index.php" method="post">
+		if (mb_strlen($password, 'UTF-8') < 5) {
+			$error = 'пароль должен быть длинее 4 символов';
+		}
+	}
+	?>
+
+	<div>
+		<p>Email: <?= $email ?></p>
+		<p>Password: <?= $password ?></p>
+	</div>
+
+	<?php if ($error) : ?>
+		<p><?= $error ?></p>
+	<?php endif ?>
+
+	<form action="" method="post">
 		<div>
 			<label for="email">email:</label>
-			<input type="email" id="email" placeholder="введите почту" />
+			<input type="email" id="email" name="email" placeholder="введите почту" value="<?= $email ?>" />
 		</div>
 		<div>
 			<label for="password">password:</label>
-			<input type="text" id="password" placeholder="введите пароль" />
+			<input type="text" id="password" name="password" placeholder="введите пароль" />
 		</div>
 		<button type="submit">submit</button>
 	</form>
+	<br>
+
+	<!-- отправка файлов на сервер -->
+	<?php
+	var_dump($_FILES);
+	if (!empty($_FILES['file']['name'])) {
+		// первый параметр временный путь к загруженному файлу 
+		// второй параметр куда нужно переместить файл
+		move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/images/' . $_FILES['file']['name']);
+	}
+	?>
+	<form action="" method="post" enctype="multipart/form-data">
+		<div>
+			<label for="file">загрузите файл:</label>
+			<input type="file" name="file" id="file">
+		</div>
+		<button type="submit">загрузить</button>
+	</form>
+
+
+	<!-- встроенные функции языка -->
+	<?php
+	// mb_strlen() - считает кол-во символов
+	// stristr() - 2 параметра, 1 сама строка, 2 какую подстроку ищем, если находит выдает true иначе false. регистро не зависимая
+	// strstr() - как и stristr(), единственное отличие, она строгий регистр
+	// strpos() - 2  параметра, выдает позицию в индексах искомой строки
+	// substr() - режет строку и выдает подстроку, в указаном диапазоне 0, 3, если нужен конец, просто -1 или -2 и т.д.
+	?>
 </body>
 
 </html>
