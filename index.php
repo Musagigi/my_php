@@ -477,6 +477,76 @@
 	test(...$ch);
 	echo '<br>';
 	?>
+
+	<?php
+	// анонимные функции
+	// Анонимная функция определяется как обычная функция за тем исключением, что она не имеет имени. Фактически подобная переменная применяется как стандарт. функция
+	$anonFunc = function ($name) {
+		echo "<h3>Hello $name</h3>";
+	};
+	$anonFunc('ivan');
+
+
+	// Распространенным случаем применения анонимных функций является передача их параметрам других функции. Таким анонимные функции еще называют функциями обратного вызова или коллбеками (callback function). Рассмотрим простейший пример:
+	function welcome($message)
+	{
+		$message();
+	}
+
+	$goodMorning = function () {
+		echo "<h3>Have a good morning</h3>";
+	};
+	$goodEvening = function () {
+		echo "<h3>Have a good evening</h3>";
+	};
+	welcome($goodMorning);
+	welcome($goodEvening);
+	welcome(function () {
+		echo 'Hello!';
+	});
+	echo '<br>';
+
+
+	// допустим, мы хотим, чтобы функция подсчитывала сумму только тех чисел, которые удовлетворяют определенному условию,Но на момент определения функции мы не знаем, какое условие мы захотим использовать в будущем. И в этом случае мы можем использовать анонимные функции
+	function sum(array $numbers,  $condition): int
+	{
+		$result = 0;
+		foreach ($numbers as $number) {
+			if ($condition($number)) {
+				$result += $number;
+			}
+		}
+
+		return $result;
+	}
+
+	// четные
+	$isEvenNum = function ($n) {
+		return $n % 2 === 0;
+	};
+	// только положительные
+	$isPositiveNum = function ($n) {
+		return $n > 0;
+	};
+
+	$myNumbers = [-2, -1, 0, 1, 2, 3, 4, 5];
+	$evenSum = sum($myNumbers, $isEvenNum);
+	$positiveSum = sum($myNumbers, $isPositiveNum);
+	echo "Сумма четных чисел: $evenSum <br /> Сумма положительных чисел: $positiveSum <br>";
+
+
+	// Замыкание - Closure
+	$numb = 99;
+	$numb2 = 1;
+
+	// выражение use() получает внешние переменные, работает только с анонимными фукнциями
+	$showClosure = function ($a) use ($numb, $numb2) {
+		return ($numb + $numb2) / $a;
+	};
+
+	$t = $showClosure(2);
+	echo $t;
+	?>
 </body>
 
 </html>
