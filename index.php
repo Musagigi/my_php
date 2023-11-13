@@ -416,6 +416,67 @@
 	}
 	?>
 
+	<!-- Объединение массивов -->
+	<?php
+	$arr1 = ['my', 'text'];
+	$arr2 = ['foo', 'test'];
+	$res = $arr1 + $arr2; // просто так не объединяться
+	print_r($res);
+	echo '<br>';
+
+	$res2 = array_merge($arr1, $arr2); // объединит массивы
+	print_r($res2);
+	echo '<br>';
+	echo is_array($res2) . ' если 1 является массивом<br>'; // проверка на массив
+
+	// не строгое сравнивание, если добавить 3 параметр, будет строгое равенство
+	echo in_array('my', $res2, true) . ' поиск в массиве<br>';
+
+	// если 1 true
+	echo array_key_exists(1, $res2) . ' поиск ключа в массиве<br>';
+	echo '<br>';
+
+	$numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+	//рандомный элемент из массива 
+	$randomIndex = rand(0, count($numbers) - 1);
+	echo $numbers[$randomIndex] . '<br>';
+
+	// новый массив с четными числами
+	$newNum = [];
+	foreach ($numbers as $num) {
+		if ($num % 2 === 0) {
+			$newNum[] = $num;
+		}
+	}
+	echo '<pre>';
+	print_r($newNum);
+	echo '</pre>';
+	echo '<br>';
+
+	$t = rand(5, 10);
+	$tArr = [];
+	for ($i = 0; $i < $t; $i++) {
+		$tArr[] = rand(0, 100);
+	}
+	echo '<pre>';
+	print_r($tArr);
+	echo '</pre>';
+	var_dump(sort($tArr, SORT_NUMERIC));
+	echo '<br>';
+
+
+	function test(string ...$items)
+	{
+		foreach ($items as $item) {
+			echo $item . '<br>';
+		}
+	}
+
+	$ch = ['qw', 'er', 'ty', 'ui'];
+	test(...$ch);
+	echo '<br>';
+	?>
 </body>
 
 </html>
