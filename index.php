@@ -535,17 +535,31 @@
 	echo "Сумма четных чисел: $evenSum <br /> Сумма положительных чисел: $positiveSum <br>";
 
 
-	// Замыкание - Closure
+	// Замыкание - Closure - работает только
+	// с анонимными фукнциями или с functions expression
 	$numb = 99;
 	$numb2 = 1;
 
-	// выражение use() получает внешние переменные, работает только с анонимными фукнциями
+	// выражение use() получает внешние переменные, работает только с анонимными фукнциями или с function expression
+	function () use ($numb) {
+		return $numb + 1;
+	};
 	$showClosure = function ($a) use ($numb, $numb2) {
 		return ($numb + $numb2) / $a;
 	};
 
 	$t = $showClosure(2);
-	echo $t;
+	echo $t . '<br>';
+
+	function hel()
+	{
+		return 'hel';
+	}
+	// присвоили имя функции в переменную, 
+	// теперь переменная работает как функция
+	$he = 'hel';
+	echo $he();
+
 	?>
 </body>
 
