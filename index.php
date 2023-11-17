@@ -559,7 +559,128 @@
 	// теперь переменная работает как функция
 	$he = 'hel';
 	echo $he();
+	echo '<br>';
 
+	// Стрелочные функции (arrow function) позволяют упростить запись анонимных функций, которые возвращают некоторое значение. И при этом стрелочные функции автоматически имеют доступ к переменным из внешнего окружения.
+
+	// Стрелочная функция определяется с помощью оператора fn:
+	// fn(param) => action
+
+	$aa = 8;
+	$bb = 2;
+
+	$arrow = fn ($cc) => $aa + $bb + $cc;
+	echo $arrow(10);
+	echo '<br>';
+	// если внутри стрелочной функции поменять значение переменной извне например $aa, ее значение снаружи не изменится
+
+	function testArrow($a, $arrow)
+	{
+		return $a + $arrow($a);
+	}
+
+	$tt = testArrow(500, fn ($num) => $num * 2);
+	echo $tt;
+	echo '<br>';
+
+	// ССЫЛКИ &&&&&&&
+	function square(&$a)
+	{
+		$a *= $a;
+		echo "a = $a";
+	}
+
+	$number = 5;
+	square($number);
+	echo "<br> number = $number<br>";
+
+	// Возвращение ссылки из функции
+	// Функция также может возвращать ссылку. В этом случае при определении и вызове функции перед ее именем ставится знак амперсанда:
+
+	// В данном случае функция checkName() получает параметр по ссылке и возвращает ссылку - фактически ссылку, которая передается в функции. Для этого перед определением функции указан символ амперсанда:
+	// function &checkName(&$name)
+	function &checkName(&$name)
+	{
+		if ($name === "admin") $name = "Tom";
+		return $name;
+	}
+
+	$userName = "admin";
+	$checkedName = &checkName($userName);
+	echo "<br />userName: $userName";
+	echo "<br />checkedName: $checkedName <br>";
+	$checkedName = 'test';
+	echo "<br />userName: $userName поменяли";
+	echo "<br />checkedName: $checkedName тоже поменяли<br>";
+	// При вызове функции перед ее именем указывается символ амерсанда:
+	// $checkedName = &checkName($userName)
+	// После выполнения функции переменная $checkedName фактически будет содержать ссылку на переменную $userName.
+
+
+
+	// ОБЛАСТЬ ВИДИМОСТИ
+
+	// Блоки циклов и условных конструкций не образуют отдельной области видимости, и переменные, определенные в этих блоках, мы можем использовать вне этих блоков:
+	$condition = true;
+	if ($condition) {
+
+		$name = "Tom";
+	}
+	echo $name . '<br> <br>'; // Tom
+
+
+	// Локальные переменные создаются внутри функции. К таким переменным можно обратиться только изнутри данной функции
+	function showName()
+	{
+		// так же мы просто так не можем обратиться к переменным извне
+		// echo $condition; ничего не выведет
+		$nameCon = "innerTom";
+		echo $nameCon;
+	}
+	showName();
+	echo '<br> teeees' . $nameCon; //  $nameCon - ничего не выведет
+	echo '<br>';
+	echo '<br>';
+
+	// Статические переменные. Они отличаются тем, что после завершения работы функции их значение сохраняется. При каждом новом вызове функция использует ранее сохраненное значение
+	function getCounter()
+	{
+		static $counter = 0;
+		$counter++;
+		echo $counter;
+	}
+	getCounter(); // counter=1
+	echo '<br>';
+	getCounter(); // counter=2
+	echo '<br>';
+	getCounter(); // counter=3
+	echo '<br>';
+	echo '<br>';
+
+
+	// Глобальные переменные  Для этого необходимо использовать ключевое слово global. Делаются для того чтобы обратиться к внешним переменным
+	$name = "Tom";
+	function hello()
+	{
+		global $name;
+		echo "Hello " . $name;
+	}
+	hello();    // Hello Tom
+	echo '<br>';
+	// В качестве альтернативы оператору global для обащения к глобальным переменным мы можем использовать встроенный массив $GLOBALS
+
+	$name = "Tom";
+	function changeName()
+	{
+		// из-за глобальности внутри можем менять значение переменной
+		$username = $GLOBALS["name"];
+		echo "Старое имя: $username <br>";
+		// изменяем значение переменной $name
+		$GLOBALS["name"] = "Tomas";
+	}
+	changeName();
+	echo "Новое имя: " . $name;
+	// КОНЕЦ ОБЛАСТЬ ВИДИМОСТИ
 	?>
 </body>
 
