@@ -6,6 +6,15 @@ btn = document.querySelector('button');
 var overlay = document.querySelector('.overlay');
 
 btn.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dark')) {
+    e.target.classList.remove('dark')
+    e.target.classList.add('light')
+    overlay.style.backgroundColor = 'rgba(0,0,0,0)'
+  } else {
+    e.target.classList.remove('light')
+    e.target.classList.add('dark')
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.5)'
+  }
 })
 
 let i = 1

@@ -19,3 +19,25 @@ for (var i = 0; i < cats.length; i++) {
 }
 
 console.log(info);
+// Object.getPrototypeOf() - Возвращает прототип указанного объекта.
+// Object.setPrototypeOf() - Устанавливает прототип (т.е. внутреннее свойство [[Prototype]])
+let a = 100
+
+function t111() {
+
+	function tt() {
+
+		function tttt() {
+			console.log(a);
+		}
+
+		tttt()
+	}
+
+	tt()
+}
+
+t111()
+
+// console.log(Number.isNaN(NaN));
+// console.log(isNaN('22s'));
