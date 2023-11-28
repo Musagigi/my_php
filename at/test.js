@@ -21,7 +21,7 @@ for (var i = 0; i < cats.length; i++) {
 console.log(info);
 // Object.getPrototypeOf() - Возвращает прототип указанного объекта.
 // Object.setPrototypeOf() - Устанавливает прототип (т.е. внутреннее свойство [[Prototype]])
-let a = 100
+let a = 120
 
 function t111() {
 
@@ -41,3 +41,17 @@ t111()
 
 // console.log(Number.isNaN(NaN));
 // console.log(isNaN('22s'));
+
+// чет не работает
+function sum(a) {
+	return (b) => a + b;
+}
+
+function throttle(fn, ms) {
+	return function (...args) {
+		setTimeout(() => fn.apply(this, args), ms);
+	};
+}
+
+const addTwo = throttle(sum(2), 1500);
+console.log(addTwo(98));
