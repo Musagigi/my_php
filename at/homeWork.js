@@ -15,24 +15,28 @@ const deepEqual = (obj1, obj2) => {
 	}
 
 	if (keys1.length !== keys2.length) {
+		console.log('1');
 		return false
 	}
 
 	keys1.forEach(elem => {
 		if (!keys2.includes(elem)) {
+			console.log('2');
 			return false
 		}
 	})
 
 	for (let i in obj1) {
 
-		if (typeof obj1[i] === typeof obj2[i]) {
-			// console.log(obj1[i]);
-
+		// исправить это условие
+		if (typeof obj1[i] === typeof obj2[i] && obj1[i] === obj2[i]) {
+			console.log('simple------', obj2[i]);
 			if (typeof obj1[i] === 'object' && typeof obj2[i] === 'object') {
 				// console.log(obj1[i], '++');
 				deepEqual(obj1[i], obj2[i])
 			}
+			// return true;
+			// console.log(obj1[i]);
 		} else {
 			return false;
 		}
@@ -52,6 +56,7 @@ let test1 = deepEqual(
 				q1: [1, 2, 3, 'a']
 			},
 		},
+		d: NaN
 	},
 	{
 		1: null, 2: false, 3: undefined, a: 1, b: 2,
@@ -63,6 +68,7 @@ let test1 = deepEqual(
 				q1: [1, 2, 3, 'a']
 			},
 		},
+		d: NaN
 	},
 )
 
@@ -96,7 +102,8 @@ console.log(
 test2 = ${test2}`
 );
 
-
+// const objx = { a: 5, b: { 'sdf': 'sdfa', 'sdf': { 1: 'sdf' } } }
+// deepEqual(objx)
 
 // --------Задание 2----------
 

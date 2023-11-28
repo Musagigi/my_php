@@ -7,6 +7,10 @@
 			content="width=device-width"
 		/>
 		<title>Object-oriented JavaScript example</title>
+		<link
+			rel="stylesheet"
+			href="./test.css"
+		/>
 	</head>
 
 	<body>
@@ -19,6 +23,9 @@
 			>
 			for more information).
 		</p>
+
+		<h1 class="test1">Tst</h1>
+		<h1 class="test2">Tst2</h1>
 
 		<script>
 			const person = {
@@ -51,6 +58,53 @@
 			person.interests[1];
 			person.bio();
 			person.greeting();
+
+			// Свойства и методы определяются в свойстве prototype функции-конструктора объектов, а не в самих объектах
+
+			// Каждая функция-конструктор имеет свойство prototype, значением которого является объект, содержащий свойство constructor. Это свойство constructor указывает на исходную функцию-конструктор.
+
+			function Personn(first, last, age, gender, interests) {
+				this.name = {
+					first: first,
+					last: last,
+				};
+				this.age = age;
+				this.gender = gender;
+
+				this.sayHello = function () {
+					console.log(this.name.first + " hello");
+				};
+			}
+
+			Personn.prototype.sayBye = function () {
+				console.log(this.name.first + " bye");
+			};
+
+			let person1 = new Personn("ivan", "ivanov", 32, "male", [
+				"music",
+				"skiing",
+			]);
+
+			console.log(person1.name);
+			person1.sayHello();
+			person1.sayBye();
+			console.log(person1.__proto__);
+
+			let person2 = Object.create(person1);
+			console.log(person2.constructor.name);
+
+			let arr = [1, 2, 3];
+			arr.shift();
+			console.log(arr[0]);
+
+			let oo2 = { 1234: 123123123123123 };
+
+			let obj = { test: 123, 123: 123 };
+			obj.__proto__ = oo2;
+
+			for (let i in obj) {
+				console.log(obj[i], i);
+			}
 		</script>
 	</body>
 </html>
