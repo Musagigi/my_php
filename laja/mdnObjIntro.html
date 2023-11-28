@@ -7,25 +7,10 @@
 			content="width=device-width"
 		/>
 		<title>Object-oriented JavaScript example</title>
-		<link
-			rel="stylesheet"
-			href="./test.css"
-		/>
 	</head>
 
 	<body>
-		<p>
-			This example requires you to enter commands in your browser's JavaScript
-			console (see
-			<a
-				href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools"
-				>What are browser developer tools</a
-			>
-			for more information).
-		</p>
-
 		<h1 class="test1">Tst</h1>
-		<h1 class="test2">Tst2</h1>
 
 		<script>
 			const person = {
@@ -52,59 +37,80 @@
 				},
 			};
 
-			person.name;
-			person.name[0];
-			person.age;
-			person.interests[1];
-			person.bio();
-			person.greeting();
+			const pers2 = {
+				name: ["ivan", "ivanov"],
+				greeting() {
+					console.log("Hi! " + this.name[0] + ".");
+				},
+				__proto__: person,
+			};
+			pers2.greeting();
 
 			// Свойства и методы определяются в свойстве prototype функции-конструктора объектов, а не в самих объектах
 
 			// Каждая функция-конструктор имеет свойство prototype, значением которого является объект, содержащий свойство constructor. Это свойство constructor указывает на исходную функцию-конструктор.
 
-			function Personn(first, last, age, gender, interests) {
+			//Полиморфизм - Это особенность — когда метод имеет одно и то же имя, но разную реализацию в разных классах. Когда метод в подклассе заменяет реализацию суперкласса, мы говорим, что подкласс переопределяет версию в суперклассе.
+			function Person(first, last, age, gender, interests) {
+				this.test = 10;
 				this.name = {
-					first: first,
-					last: last,
+					first,
+					last,
 				};
 				this.age = age;
 				this.gender = gender;
-
+				this.interests = interests;
 				this.sayHello = function () {
 					console.log(this.name.first + " hello");
 				};
 			}
 
-			Personn.prototype.sayBye = function () {
-				console.log(this.name.first + " bye");
+			Person.prototype.greeting = function () {
+				console.log("Hi! I'm " + this.name.first + ".");
 			};
+			console.log(Person.prototype);
 
-			let person1 = new Personn("ivan", "ivanov", 32, "male", [
+			let person1 = new Person("ivan", "ivanov", 32, "male", [
 				"music",
 				"skiing",
 			]);
-
-			console.log(person1.name);
 			person1.sayHello();
-			person1.sayBye();
+			person1.greeting();
+			person1.myName = "person1";
+			console.log(person1);
 			console.log(person1.__proto__);
 
+			// метод Object. create() создаёт новый объект с указанным прототипом и свойствами
 			let person2 = Object.create(person1);
-			console.log(person2.constructor.name);
+			person2.myName = "person2";
+			console.log(person2);
+			console.log(person2.age); // наследует от person1, берет его знаечение
 
-			let arr = [1, 2, 3];
-			arr.shift();
-			console.log(arr[0]);
+			function Teacher(first, last, age, gender, interests, subject) {
+				// наследуем св-ва от Person, а не переопределяем свои
+				Person.call(this, first, last, age, gender, interests);
 
-			let oo2 = { 1234: 123123123123123 };
-
-			let obj = { test: 123, 123: 123 };
-			obj.__proto__ = oo2;
-
-			for (let i in obj) {
-				console.log(obj[i], i);
+				this.subject = subject;
 			}
+
+			// Нам нужно заставить Teacher() наследовать методы, определённые на прототипе Person()
+			Teacher.prototype = Object.create(Person.prototype);
+
+			// Указываем конструктор на самого себя, а так будет Person
+			// Teacher.prototype.constructor = Teacher; - можно так, но лучше как ниже
+			Object.defineProperty(Teacher.prototype, "constructor", {
+				value: Teacher,
+				enumerable: false, // false, чтобы данное свойство не появлялось в цикле for in
+				writable: true,
+			});
+			console.log(Teacher.prototype);
+			let tea = new Teacher();
+			console.log(tea.test);
+
+			function Te() {}
+			Te.prototype = Object.create(Teacher.prototype);
+			Te.prototype.constructor = Te;
+			console.log(Te.prototype);
 		</script>
 	</body>
 </html>
