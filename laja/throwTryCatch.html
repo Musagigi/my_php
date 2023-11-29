@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//Инструкция throw используется, чтобы выбросить исключение, а инструкция try...catch, чтобы его обработать.
+			//Вы можете выбросить объект как исключение. Вы можете обращаться к свойствам данного объекта в блоке catch.
+
+			function UserException(message) {
+				this.message = message;
+				this.name = "UserException";
+			}
+
+			UserException.prototype.toString = function () {
+				return this.name + ': "' + this.message + '"';
+			};
+			// throw new UserException("Value too high");
+
+			//блоке try будет выброшено исключение, то управление будет передано в блок catch. Если в блоке try не возникнет исключений, то блок catch будет пропущен. Блок finally будет выполнен после окончания работы блоков try и catch, вне зависимости от того, было ли выброшено исключение.
+			let myMonth = 12;
+			function getMonthName(mo) {
+				mo = mo - 1;
+				var months = [
+					"Jan",
+					"Feb",
+					"Mar",
+					"Apr",
+					"May",
+					"Jun",
+					"Jul",
+					"Aug",
+					"Sep",
+					"Oct",
+					"Nov",
+					"Dec",
+				];
+				if (months[mo]) {
+					return months[mo];
+				} else {
+					throw "InvalidMonthNo";
+				}
+			}
+
+			try {
+				monthName = getMonthName(myMonth);
+				console.log(monthName);
+			} catch (e) {
+				monthName = "unknown";
+				console.log(logMyErrors(e));
+			}
+
+			//JavaScript создаёт идентификатор catchID (e), которому присваивается перехваченное исключение, при входе в блок catch; данный идентификатор доступен только в пределах блока catch и уничтожается при выходе из него.
+			try {
+				throw "myException";
+			} catch (e) {
+				console.error(e);
+			}
+
+			//Если блок finally возвращает значение, то данное значение становится возвращаемым значением всей связки try-catch-finally. Значения, возвращаемые блоками try и catch, будут проигнорированы.
+			function f() {
+				try {
+					console.log(0);
+					throw "bogus";
+				} catch (e) {
+					console.log(1);
+					return true; // приостанавливается до завершения блока `finally`
+					console.log(2); // не выполняется
+				} finally {
+					console.log(3);
+					return false; // заменяет предыдущий `return`
+					console.log(4); // не выполняется
+				}
+				// `return false` выполняется сейчас
+				console.log(5); // не выполняется
+			}
+			console.log(f()); // отображает 0, 1, 3 и возвращает `false`
+
+			//Использование объекта Error
+			//В зависимости от типа ошибки вы можете использовать свойства name и message, чтобы получить более подробную информацию. Свойство name содержит название ошибки (например, DOMException или Error), свойство message — описание ошибки.
+			//Если вы выбрасываете собственные исключения, то чтобы получить преим
+			```
+			function doSomethingErrorProne() {
+				if (ourCodeMakesAMistake()) {
+					throw new Error("The message");
+				} else {
+					doSomethingToGetAJavascriptError();
+				}
+			}
+
+			try {
+				doSomethingErrorProne();
+			} catch (e) {
+				console.log(e.name); // 'Error'
+				console.log(e.message); // 'The message' или JavaScript error message
+			}
+			```;
+		</script>
+	</body>
+</html>
