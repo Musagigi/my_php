@@ -112,6 +112,20 @@
 				story.textContent = newStory;
 				story.style.visibility = "visible";
 			}
+
+			const target = { a: 1, b: 2 };
+			const source = { b: 4, c: 5 };
+
+			const returnedTarget = Object.assign(target, source);
+			console.log(target);
+			console.log(returnedTarget);
+			console.log(returnedTarget === target);
+
+			//spread operator - оператор расишрения ...
+			let a3 = [1, 2, 3, 4, 5, 6];
+			let [c, d, ...e] = a3; // деструктурирующее присваивание
+			console.log(c, d, e);
+			console.log(c, d, ...e);
 		</script>
 	</body>
 </html>
