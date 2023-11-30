@@ -126,6 +126,24 @@
 			let [c, d, ...e] = a3; // деструктурирующее присваивание
 			console.log(c, d, e);
 			console.log(c, d, ...e);
+
+			//var associative_array = new Boolean();
+			//var associative_array = new Date();
+			//var associative_array = new RegExp();
+			//var associative_array = new Number();
+			var associative_array = new Array();
+			associative_array["one"] = "Lorem";
+			associative_array["two"] = "Ipsum";
+			associative_array["three"] = "dolor";
+			console.log(associative_array);
+			console.log(associative_array.length);
+			for (i in associative_array) {
+				console.log(i);
+			}
+
+			//Форматирование чисел. Объект NumberFormat полезен при форматировании чисел, например, валют.
+
+			//Примечание: Не существует способа остановить или прервать цикл forEach() кроме как выбрасыванием исключения. Если вам необходимо такое поведение, метод forEach() неправильный выбор.
 		</script>
 	</body>
 </html>
