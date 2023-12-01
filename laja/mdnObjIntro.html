@@ -111,6 +111,35 @@
 			Te.prototype = Object.create(Teacher.prototype);
 			Te.prototype.constructor = Te;
 			console.log(Te.prototype);
+
+			//Объекты также можно создавать с помощью метода Object.create. Этот метод очень удобен, так как позволяет вам указывать объект прототип для нового вашего объекта без определения функции конструктора.
+			// список свойств и методов для Animal
+			var Animal = {
+				type: "Invertebrates", // Значение type по умолчанию
+				displayType: function () {
+					// Метод отображающий тип объекта Animal
+					console.log(this.type);
+				},
+			};
+
+			// Создаём объект Animal
+			var animal1 = Object.create(Animal);
+			animal1.displayType(); // Выведет:Invertebrates
+			console.log(animal1);
+
+			// Создаём объект Animal и присваиваем ему type = Fishes
+			var fish = Object.create(Animal);
+			fish.type = "Fishes";
+			fish.displayType(); // Выведет:Fishes
+			console.log(fish);
+
+			// Создаём объект lion, наследуемся от fish и присваиваем ему legs = 4
+			// запись через Object.create() по сути равна lion.__proto__ = fish
+			// var lion = {};
+			// lion.__proto__ = fish;
+			var lion = Object.create(fish);
+			lion.legs = 4;
+			console.log(lion);
 		</script>
 	</body>
 </html>
