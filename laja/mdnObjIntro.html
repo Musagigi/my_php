@@ -13,6 +13,24 @@
 		<h1 class="test1">Tst</h1>
 
 		<script>
+			// this - это ключевое слово, которое ссылается на текущий объект, в контексте которого оно используется. Значение this зависит от того, как функция была вызвана.
+			// Значение this также может быть установлено явно с помощью методов call, apply и bind.
+			let user = { name: "John" };
+			let admin = { name: "Admin" };
+
+			function sayHi() {
+				alert(this.name);
+			}
+
+			// используем одну и ту же функцию в двух объектах
+			user.f = sayHi;
+			admin.f = sayHi;
+
+			// эти вызовы имеют  разное значение this
+			// "this" внутри функции - это объект "перед точкой"
+			user.f(); // John  (this == user)
+			admin.f(); // Admin  (this == admin)
+
 			const person = {
 				name: ["Bob", "Smith"],
 				age: 32,
