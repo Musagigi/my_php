@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//forEach - является синхронным мтеодом
+			//Не существует способа остановить или прервать цикл forEach() кроме как выбрасыванием исключения. Если вам необходимо такое поведение, метод forEach() неправильный выбор.
+
+			//Выравнивание (уплощение) массива
+			//Следующий пример приведён только для целей обучения. Если вы хотите выравнять массив с помощью встроенных методов, вы можете использовать Array.prototype.flat()
+
+			function flatten(arr) {
+				const result = [];
+
+				arr.forEach((i) => {
+					if (Array.isArray(i)) {
+						result.push(...flatten(i));
+					} else {
+						result.push(i);
+					}
+				});
+
+				return result;
+			}
+
+			// Usage
+			const nested = [1, 2, 3, [4, 5, [6, 7], 8, 9]];
+			flatten(nested); // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+			//Array.prototype.flat()
+			//Метод flat() возвращает новый массив, в котором все элементы вложенных подмассивов были рекурсивно "подняты" на указанный уровень depth.
+			var arr1 = [1, 2, [3, 4]];
+			console.table(arr1.flat());
+			// [1, 2, 3, 4]
+
+			var arr2 = [1, 2, [3, 4, [5, 6]]];
+			arr2.flat();
+			// [1, 2, 3, 4, [5, 6]]
+
+			var arr3 = [1, 2, [3, 4, [5, 6]]];
+			arr3.flat(2);
+			// [1, 2, 3, 4, 5, 6]
+
+			var arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+			arr4.flat(Infinity);
+			// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+			//Метод flat удаляет пустые слоты из массива:
+			var arr4 = [1, 2, , 4, 5];
+			arr4.flat();
+			// [1, 2, 4, 5]
+		</script>
+	</body>
+</html>

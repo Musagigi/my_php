@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// Далее у нас есть три блока кода следующих сразу после fetch():
+
+			//Два then() блока. Оба включают в себя функцию обратного вызова, которая запустится, если предыдущая операция закончилась успешно, и каждая колбэк-функция принимает на вход результат предыдущей успешно выполненной операции, таким образом вы можете выполнять операции последовательно. Каждый .then() блок возвращает новый promise, это значит что вы можете объединять в цепочки блоки .then(), таким образом можно выполнить несколько асинхронных операций по порядку, одну за другой.
+
+			//catch() блок описывается в конце и будет запущен если какой-либо .then() блок завершится с ошибкой — это аналогично синхронному try...catch, ошибка становится доступной внутри catch(), что может быть использовано для сообщения пользователю о типе возникшей ошибки. Однако синхронный try...catch не будет работать с promise, хотя будет работать с async/await, с которыми вы познакомитесь позже.
+			fetch("products.json")
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then((json) => initialize(json))
+				.catch((err) => console.error(`Fetch problem: ${err.message}`));
+
+			//Когда мы вызываем new Promise(callback), функция коллбэка будет выполнена сразу же
+			//этот код последовательно выведет start, 1, end
+			console.log("start");
+			const promise1 = new Promise((resolve, reject) => {
+				console.log(1);
+			});
+			console.log("end");
+		</script>
+	</body>
+</html>
