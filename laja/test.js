@@ -1,18 +1,15 @@
-arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-total = 13;
-//result = [4, 9]
+// console.log(x)
 
-const firstSum = (arr, total) => {
-	let findNum
+// var x = 1
+// console.log(x)
 
-	for (let i of arr) {
-		findNum = total - i
+// function car() {
 
-		if (arr.includes(findNum)) {
-			return [i, findNum]
-		}
-	}
-}
+// 	if (false) {
+// 		var x = 2
+// 	}
+// 	console.log(x) // undefined
+// }
 
-let result = firstSum(arr, total)
-console.log(result);
+// car()
+// console.log(x) 
